@@ -26,5 +26,7 @@ services:
         value: laravel.log
       - key: APP_DEBUG
         value: false
+      - key: APP_URL
+        value: https://activity-tracker-tfwk.onrender.com
     healthCheckPath: /
     plan: starter
