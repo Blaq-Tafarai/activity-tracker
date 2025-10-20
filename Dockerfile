@@ -67,5 +67,5 @@ RUN a2enmod rewrite
 # Expose port (use PORT env var or default to 80)
 EXPOSE 80
 
-# Run migrations and start Apache
-CMD php artisan migrate --force && apache2-foreground
+# Run migrations, cache config, and start Apache
+CMD php artisan migrate --force && php artisan config:cache && apache2-foreground
