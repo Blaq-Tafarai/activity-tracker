@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: activity-tracker
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_KEY
+        generateValue: true
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_URL
+        value: postgresql://activity_tracker_bfkx_user:yEb0us1t4HhjPyUfTd7gf152HOvNMrLU@dpg-d3qfv5m3jp1c738jh1k0-a/activity_tracker_bfkx
+      - key: CACHE_DRIVER
+        value: file
+      - key: QUEUE_CONNECTION
+        value: database
+      - key: SESSION_DRIVER
+        value: file
+      - key: LOG_CHANNEL
+        value: stack
+      - key: LOG_STACK
+        value: single
+      - key: LOG_SINGLE_FILE
+        value: laravel.log
+    healthCheckPath: /
+    plan: starter

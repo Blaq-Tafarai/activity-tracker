@@ -31,7 +31,7 @@
                             <select name="status" class="border border-gray-300 rounded-lg px-10 py-2.5 text-sm" id="status-select">
                                 <option value="">All Status</option>
                                 <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
-                                <option value="done" {{ request('status') == 'done' ? 'selected' : '' }}>Completed</option>
+                                <option value="done" {{ request('status') == 'done' ? 'selected' : '' }}>Done</option>
                             </select>
                         </form>
                         <a href="{{ route('activities.create') }}" class="inline-flex items-center px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg">
