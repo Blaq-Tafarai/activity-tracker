@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex items-center justify-between">
+        <div class="md:flex md:items-center md:justify-between lg:flex-row sm:flex-col items-start space-y-4 md:space-y-0">
             <div>
                 <h2 class="font-bold text-3xl text-gray-900 mb-1">
                     {{ __('Dashboard') }}

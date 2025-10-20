@@ -17,7 +17,7 @@ services:
       - key: QUEUE_CONNECTION
         value: database
       - key: SESSION_DRIVER
-        value: file
+        value: database
       - key: LOG_CHANNEL
         value: stack
       - key: LOG_STACK
