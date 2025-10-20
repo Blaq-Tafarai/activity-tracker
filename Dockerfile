@@ -49,8 +49,22 @@ RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html/storage \
     && chmod -R 755 /var/www/html/bootstrap/cache
 
-# Expose port 80
-EXPOSE 80
+# Configure Apache for Laravel
+RUN echo '<VirtualHost *:${PORT:-80}>\n\
+    DocumentRoot /var/www/html/public\n\
+    <Directory /var/www/html/public>\n\
+        AllowOverride All\n\
+        Require all granted\n\
+    </Directory>\n\
+    ErrorLog ${APACHE_LOG_DIR}/error.log\n\
+    CustomLog ${APACHE_LOG_DIR}/access.log combined\n\
+</VirtualHost>' > /etc/apache2/sites-available/000-default.conf
+
+# Enable Apache mod_rewrite
+RUN a2enmod rewrite
+
+# Expose port (use PORT env var or default to 80)
+EXPOSE ${PORT:-80}
 
 # Run migrations and start Apache
 CMD php artisan migrate --force && apache2-foreground

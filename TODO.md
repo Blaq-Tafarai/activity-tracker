@@ -9,5 +9,5 @@
 - [x] Ensure .gitignore excludes sensitive files (already done for .env)
 - [x] Commit changes and push to GitHub
 - [ ] On Render: Create web service using Docker, environment variables are set in render.yaml, deploy
-- [ ] Run php artisan migrate on Render after deployment (via shell or build command)
+- [ ] Run php artisan migrate on Render after deployment (migrations run automatically in Dockerfile CMD)
 - [ ] Test app locally with SQLite and on Render with PostgreSQL
