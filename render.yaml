@@ -10,7 +10,7 @@ services:
         generateValue: true
       - key: DB_CONNECTION
         value: pgsql
-      - key: DB_URL
+      - key: DATABASE_URL
         value: postgresql://activity_tracker_bfkx_user:yEb0us1t4HhjPyUfTd7gf152HOvNMrLU@dpg-d3qfv5m3jp1c738jh1k0-a/activity_tracker_bfkx
       - key: CACHE_DRIVER
         value: file
