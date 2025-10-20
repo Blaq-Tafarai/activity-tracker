@@ -1,65 +1,71 @@
-# Use official PHP 8.2 Apache image
+# Use the official PHP image with Apache
 FROM php:8.2-apache
+
+# Set working directory
+WORKDIR /var/www/html
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     git \
     curl \
-    zip \
-    unzip \
     libpng-dev \
     libonig-dev \
     libxml2-dev \
-    libzip-dev \
     libpq-dev \
+    zip \
+    unzip \
     nodejs \
-    npm && \
-    docker-php-ext-install pdo pdo_pgsql mbstring exif pcntl bcmath gd zip
+    npm
 
-# Enable Apache mod_rewrite
-RUN a2enmod rewrite
+# Clear cache
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Configure Apache virtual host
+# Install PHP extensions
+RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd pdo_pgsql
+
+# Get latest Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Copy composer files first for better caching
+COPY composer.json composer.lock artisan ./
+
+# Install PHP dependencies
+RUN composer install --no-dev --optimize-autoloader --no-scripts
+
+# Copy package files
+COPY package.json package-lock.json ./
+
+# Install Node.js dependencies
+RUN npm install
+
+# Copy the rest of the application
+COPY . .
+
+# Build assets
+RUN npm run build
+
+# Set permissions
+RUN chown -R www-data:www-data /var/www/html \
+    && chmod -R 755 /var/www/html/storage \
+    && chmod -R 755 /var/www/html/bootstrap/cache
+
+# Configure Apache for Laravel
 RUN echo '<VirtualHost *:80>' > /etc/apache2/sites-available/000-default.conf && \
     echo '    DocumentRoot /var/www/html/public' >> /etc/apache2/sites-available/000-default.conf && \
     echo '    <Directory /var/www/html/public>' >> /etc/apache2/sites-available/000-default.conf && \
     echo '        AllowOverride All' >> /etc/apache2/sites-available/000-default.conf && \
     echo '        Require all granted' >> /etc/apache2/sites-available/000-default.conf && \
+    echo '        DirectoryIndex index.php index.html' >> /etc/apache2/sites-available/000-default.conf && \
     echo '    </Directory>' >> /etc/apache2/sites-available/000-default.conf && \
     echo '    ErrorLog ${APACHE_LOG_DIR}/error.log' >> /etc/apache2/sites-available/000-default.conf && \
     echo '    CustomLog ${APACHE_LOG_DIR}/access.log combined' >> /etc/apache2/sites-available/000-default.conf && \
-    echo '</VirtualHost>' >> /etc/apache2/sites-available/000-default.conf && \
-    echo "ServerName localhost" >> /etc/apache2/apache2.conf
+    echo '</VirtualHost>' >> /etc/apache2/sites-available/000-default.conf
 
-# Set working directory
-WORKDIR /var/www/html
+# Enable Apache mod_rewrite
+RUN a2enmod rewrite
 
-# Copy composer and install dependencies
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
-
-# Copy application files
-COPY . .
-
-# Install PHP dependencies
-RUN composer install --no-dev --optimize-autoloader
-
-# Install and build frontend assets (if applicable)
-RUN npm install && npm run build
-
-# Set file permissions for Laravel
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache && \
-    chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
-
-# Expose port 80
+# Expose port (use PORT env var or default to 80)
 EXPOSE 80
 
-# Run Laravel optimizations
-RUN php artisan config:clear && \
-    php artisan cache:clear && \
-    php artisan route:clear && \
-    php artisan view:clear && \
-    php artisan config:cache && \
-    php artisan route:cache
-
-# Start Apache
-CMD ["apache2-foreground"]
+# Run migrations and start Apache
+CMD php artisan migrate --force && apache2-foreground
