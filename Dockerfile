@@ -68,4 +68,4 @@ RUN a2enmod rewrite
 EXPOSE 80
 
 # Run migrations, cache config, and start Apache
-CMD php artisan config:cache && php artisan migrate --force && apache2-foreground
+CMD php artisan config:clear && php artisan config:cache && php artisan migrate --force && apache2-foreground
