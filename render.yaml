@@ -24,5 +24,7 @@ services:
         value: single
       - key: LOG_SINGLE_FILE
         value: laravel.log
+      - key: APP_DEBUG
+        value: false
     healthCheckPath: /
     plan: starter
