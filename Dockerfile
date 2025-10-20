@@ -27,10 +27,10 @@ RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd pdo_pgsql
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Copy composer files first for better caching
-COPY composer.json composer.lock ./
+COPY composer.json composer.lock artisan ./
 
 # Install PHP dependencies
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install --no-dev --optimize-autoloader --no-scripts
 
 # Copy package files
 COPY package.json package-lock.json ./
