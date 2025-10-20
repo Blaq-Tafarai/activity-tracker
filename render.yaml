@@ -10,8 +10,16 @@ services:
         generateValue: true
       - key: DB_CONNECTION
         value: pgsql
-      - key: DATABASE_URL
-        value: postgresql://activity_tracker_bfkx_user:yEb0us1t4HhjPyUfTd7gf152HOvNMrLU@dpg-d3qfv5m3jp1c738jh1k0-a/activity_tracker_bfkx
+      - key: DB_HOST
+        value: dpg-d3qfv5m3jp1c738jh1k0-a
+      - key: DB_PORT
+        value: 5432
+      - key: DB_DATABASE
+        value: activity_tracker_bfkx
+      - key: DB_USERNAME
+        value: activity_tracker_bfkx_user
+      - key: DB_PASSWORD
+        value: yEb0us1t4HhjPyUfTd7gf152HOvNMrLU
       - key: CACHE_DRIVER
         value: file
       - key: QUEUE_CONNECTION
