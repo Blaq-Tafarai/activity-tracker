@@ -11,7 +11,7 @@ services:
       - key: DB_CONNECTION
         value: pgsql
       - key: DATABASE_URL
-        value: postgresql://activity_tracker_bfkx_user:yEb0us1t4HhjPyUfTd7gf152HOvNMrLU@dpg-d3qfv5m3jp1c738jh1k0-a:5432/activity_tracker_bfkx
+        value: postgresql://activity_tracker_bfkx_user:yEb0us1t4HhjPyUfTd7gf152HOvNMrLU@dpg-d3qfv5m3jp1c738jh1k0-a/activity_tracker_bfkx
       - key: CACHE_DRIVER
         value: file
       - key: QUEUE_CONNECTION
@@ -27,6 +27,6 @@ services:
       - key: APP_DEBUG
         value: true
       - key: APP_URL
-        value: https://activity-tracker-tfwk.onrender.com
+        value: https://activity-tracker-n7w9.onrender.com
     healthCheckPath: /
     plan: starter
