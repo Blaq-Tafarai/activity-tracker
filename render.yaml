@@ -25,7 +25,7 @@ services:
       - key: LOG_SINGLE_FILE
         value: laravel.log
       - key: APP_DEBUG
-        value: false
+        value: true
       - key: APP_URL
         value: https://activity-tracker-tfwk.onrender.com
     healthCheckPath: /
