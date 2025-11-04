@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Activity;
 use App\Models\ActivityUpdate;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -18,6 +20,9 @@ class ReportController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-        return view('reports.index', compact('updates', 'startDate', 'endDate'));
+        $activities = Activity::all();
+        $users = User::all();
+
+        return view('reports.index', compact('updates', 'activities', 'users', 'startDate', 'endDate'));
     }
 }

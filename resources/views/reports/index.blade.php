@@ -54,7 +54,7 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-sm font-medium text-gray-600">Pending</p>
-                            <p class="text-2xl font-bold text-gray-900">{{ $updates->where('status', 'pending')->count() }}</p>
+                            <p class="text-2xl font-bold text-gray-900">{{ $activities->where('status', 'pending')->count() }}</p>
                         </div>
                         <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
                             <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -68,7 +68,7 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-sm font-medium text-gray-600">Unique Users</p>
-                            <p class="text-2xl font-bold text-gray-900">{{ $updates->pluck('user_id')->unique()->count() }}</p>
+                            <p class="text-2xl font-bold text-gray-900">{{ $users->count() }}</p>
                         </div>
                         <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
                             <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
