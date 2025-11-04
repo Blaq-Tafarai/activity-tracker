@@ -12,13 +12,17 @@ class ReportController extends Controller
 {
     public function index(Request $request)
     {
-        $startDate = $request->get('start_date', Carbon::now()->startOfMonth()->toDateString());
+        $startDate = $request->get('start_date', Carbon::now()->subYear()->startOfMonth()->toDateString());
         $endDate = $request->get('end_date', Carbon::now()->endOfMonth()->toDateString());
 
-        $updates = ActivityUpdate::with('activity', 'user')
-            ->whereBetween('created_at', [$startDate, $endDate])
-            ->orderBy('created_at', 'desc')
-            ->get();
+        $query = ActivityUpdate::with('activity', 'user')
+            ->whereBetween('created_at', [$startDate, $endDate]);
+
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        $updates = $query->orderBy('created_at', 'desc')->get();
 
         $activities = Activity::all();
         $users = User::all();

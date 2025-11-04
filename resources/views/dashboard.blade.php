@@ -7,7 +7,7 @@
                 </h2>
                 <p class="text-sm text-gray-600">Welcome back! Here's what's happening today.</p>
             </div>
-            <div class="flex items-center gap-3">
+            <div class="md:flex md:items-center md:justify-between lg:flex-row sm:flex-col items-start space-y-4 md:space-y-0 gap-4">
                 <a href="{{ route('activities.index') }}" class="inline-flex items-center px-5 py-2.5 bg-white border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
@@ -131,12 +131,12 @@
                                             </svg>
                                             View Details
                                         </a>
-                                        <a href="{{ route('activities.edit', $activity) }}" class="inline-flex items-center text-sm font-semibold text-gray-600 hover:text-gray-900">
+                                        <!-- <a href="{{ route('activities.edit', $activity) }}" class="inline-flex items-center text-sm font-semibold text-gray-600 hover:text-gray-900">
                                             <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                             </svg>
                                             Edit
-                                        </a>
+                                        </a> -->
                                     </div>
                                 </div>
                             @endforeach

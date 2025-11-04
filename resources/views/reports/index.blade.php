@@ -54,7 +54,7 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-sm font-medium text-gray-600">Pending</p>
-                            <p class="text-2xl font-bold text-gray-900">{{ $activities->where('status', 'pending')->count() }}</p>
+                            <p class="text-2xl font-bold text-gray-900">{{ $updates->where('status', 'pending')->count() }}</p>
                         </div>
                         <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
                             <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -86,7 +86,7 @@
                 </div>
                 <div class="p-6">
                     <form method="GET" action="{{ route('reports.index') }}">
-                        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                             <div>
                                 <label for="start_date" class="block text-sm font-medium text-gray-700 mb-2">Start Date</label>
                                 <input type="date" name="start_date" id="start_date" value="{{ $startDate }}" 
