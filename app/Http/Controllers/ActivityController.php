@@ -30,7 +30,7 @@ class ActivityController extends Controller
             $query->where('status', $request->status);
         }
 
-        $activities = $query->get();
+        $activities = $query->orderBy('created_at', 'desc')->get();
         return view('activities.index', compact('activities'));
     }
 

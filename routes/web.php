@@ -11,7 +11,7 @@ Route::get('/', function () {
 })->name('welcome');
 
 Route::get('/dashboard', function () {
-    $activities = Activity::latest()->take(6)->get();
+    $activities = Activity::latest()->get();
     return view('dashboard', compact('activities'));
 })->middleware(['auth', 'verified'])->name('dashboard');
 
